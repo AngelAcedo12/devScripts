@@ -5,12 +5,15 @@
   "main": "feching.js",
   "type": "module",
   "scripts": {
-    "start_feching": "node ./apps/feching/feching.js",
+    "start_feching_ts": "npx tsx ./apps/feching/feching.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "@types/node": "^22.7.4"
   }
 }
