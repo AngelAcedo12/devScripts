@@ -1,3 +1,5 @@
 /node_modules
 /dist
-```
+/apps/feching/reports.json   // ignore reports.json file
+
+
