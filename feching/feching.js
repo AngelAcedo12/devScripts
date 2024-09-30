@@ -25,7 +25,6 @@ const getPromise = (i) => {
                          statusStadistics.requestError++;
                          statusStadistics.requestErrorList.push(i);
                     }
-
                     resolve();
                })
                .catch((error) => {
