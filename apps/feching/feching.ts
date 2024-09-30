@@ -1,5 +1,4 @@
 import { createSourceFile } from "typescript";
-
 import fs from "fs";
 
 interface Config {
@@ -150,6 +149,7 @@ function main() {
      if (isConfigTrusted) {
           feching();
      }
+     
 }
 
 main();
