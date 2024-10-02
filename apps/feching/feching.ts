@@ -7,6 +7,7 @@ interface Config {
      token: string;
      urls: string[];
      fechRepeat: number;
+     fechContinue: boolean;
 }
 interface stadistisRequestOk {
      status: number;
@@ -39,38 +40,43 @@ const errorReport: errorReport[] = [];
 
 function getPromise(url) {
      return new Promise<void>(async (resolve, reject) => {
-          await fetch(url, {
-               method: "GET",
-               headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${config?.token}`,
-               },
-          })
-               .then((response) => {
-                    if (response.status === 200) {
-                         statusStadistics.requestOk++;
-                         const requestOk: stadistisRequestOk = {
-                              status: response.status,
-                              url: response.url,
-                              method: response.type,
-                         };
-                         statusStadistics.requestOkList.push(requestOk);
-                    } else {
-                         statusStadistics.requestError++;
-                         const requestError: stadistisRequestError = {
-                              status: response.status,
-                              url: response.url,
-                              method: response.type,
-                              message: response.statusText,
-                         };
-                         statusStadistics.requestErrorList.push(requestError);
-                    }
-                    resolve();
+          setTimeout(async () => {
+               await fetch(url, {
+                    method: "GET",
+                    headers: {
+                         "Content-Type": "application/json",
+                         Authorization: `Bearer ${config?.token}`,
+                    },
                })
-               .catch((error) => {
-                    errorReport.push(error);
-                    resolve();
-               });
+                    .then((response) => {
+                         if (response.status === 200) {
+                              statusStadistics.requestOk++;
+                              const requestOk: stadistisRequestOk = {
+                                   status: response.status,
+                                   url: response.url,
+                                   method: response.type,
+                              };
+                              console.log(`Request Ok: ${response.url} ✅`);
+
+                              statusStadistics.requestOkList.push(requestOk);
+                         } else {
+                              statusStadistics.requestError++;
+                              const requestError: stadistisRequestError = {
+                                   status: response.status,
+                                   url: response.url,
+                                   method: response.type,
+                                   message: response.statusText,
+                              };
+                              console.log(`Request Error: ${response.url} ❌`);
+                              statusStadistics.requestErrorList.push(requestError);
+                         }
+                         resolve();
+                    })
+                    .catch((error) => {
+                         errorReport.push(error);
+                         resolve();
+                    });
+          }, 2000);
      });
 }
 function verifyConfig() {
@@ -106,7 +112,13 @@ const loadConfig = () => {
      const file = fs.readFileSync(filePath, "utf8");
      config = JSON.parse(file);
 };
-
+function fechingContinue() {
+     if (config === undefined) {
+          console.error("Config file not loaded");
+          return;
+     }
+     feching();
+}
 function feching() {
      if (config === undefined) {
           console.error("Config file not loaded");
@@ -129,8 +141,16 @@ function feching() {
                promises.push(promise);
           }
      });
+
      Promise.all(promises).then(async (values) => {
-          const items = [{ errorReports: errorReport }, { statusStadistics: statusStadistics }];
+          let TotalerrorReports = statusStadistics.requestErrorList.length;
+          let TotalRequestOk = statusStadistics.requestOk;
+          const items = [
+               { errorReports: errorReport },
+               { statusStadistics: statusStadistics },
+               { TotalerrorReports },
+               { TotalRequestOk },
+          ];
           if (!config?.dir) {
                console.error("No dir found in config file");
                return;
@@ -138,20 +158,24 @@ function feching() {
           if (!config.dirName) {
                console.log("No dirName found in config file");
           }
-
+          console.log(
+               `TotalErrorReports:${TotalerrorReports} ❌ TotalRequestOk:${TotalRequestOk} ✅`,
+          );
+          console.log("Writing to file");
           fs.writeFileSync(config?.dir + config.dirName, JSON.stringify(items));
+          if (config.fechContinue) {
+               setTimeout(() => {
+                    feching();
+               }, 2000);
+          }
      });
 }
-
 function main() {
      loadConfig();
      const isConfigTrusted = verifyConfig();
      if (isConfigTrusted) {
-          feching();
+          fechingContinue();
      }
-     
 }
 
 main();
-
-
