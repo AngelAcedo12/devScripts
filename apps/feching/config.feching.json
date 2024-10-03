@@ -1,10 +1,12 @@
 {
     "dir": "apps/feching/",
     "dirName": "reports.json",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im1hbmFnZXIiLCJuYmYiOjE3Mjc2OTMxMDgsImV4cCI6MTcyNzcyOTEwOCwiaWF0IjoxNzI3NjkzMTA4LCJpc3MiOiJ3d3cuZmlyc2FwLmNvbSIsImF1ZCI6Ind3dy5maXJzYXAuY29tIn0.IsBZ7ct67pKqjsqSHOVojFwRv6iJbXvys7Msrqz2YBA",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Im1hbmFnZXIiLCJjb2RlIjoibWFuYWdlciIsInVzZXJSb2xlIjoiMiIsImV4dGVybm8iOiJGYWxzZSIsImZyYW5qYUhvcmFyaWEiOiIiLCJ1c2VySWQiOiIxIiwidGZhIjoiWSIsImVtcElkIjoiMSIsInVzZXJNYWlsIjoiam9zZS5jYXJhYmFsbG9AZmlyc2FwLmNvbSIsIm5hbWUiOiJVc3VhcmlvIiwibmJmIjoxNzI3OTUwNTEzLCJleHAiOjE3Mjc5ODY1MTMsImlhdCI6MTcyNzk1MDUxMywiaXNzIjoid3d3LmZpcnNhcC5jb20iLCJhdWQiOiJ3d3cuZmlyc2FwLmNvbSJ9.uyCZxzJyO_bZrt8fy7ZrKQ6_sxN8KrC-wic2s8UwUgE",
     "urls": [
-        "http://192.168.0.33:94/api/check/check"
+        "http://192.168.0.33:94/api/husos/getHusoByEmpID?empid=1"
     ],
-    "fechRepeat": 50,
-    "fechContinue": false
+    "fechRepeat": 2,
+    "fechContinue": true,
+    "fechDelay": 1000,
+    "delay": 1000
 }

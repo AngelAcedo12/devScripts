@@ -8,6 +8,8 @@ interface Config {
      urls: string[];
      fechRepeat: number;
      fechContinue: boolean;
+     delay: number;
+     fechDelay: number;
 }
 interface stadistisRequestOk {
      status: number;
@@ -76,7 +78,7 @@ function getPromise(url) {
                          errorReport.push(error);
                          resolve();
                     });
-          }, 2000);
+          }, config?.delay);
      });
 }
 function verifyConfig() {
@@ -130,19 +132,15 @@ function feching() {
           console.error("No urls found in config file");
           return;
      }
-     config?.urls.forEach((url) => {
-          if (!config?.fechRepeat) {
-               console.error("No fechRepeat found in config file");
-               return;
-          }
-          for (let i = 0; i < config?.fechRepeat; i++) {
-               const count = i;
-               const promise = getPromise(url);
-               promises.push(promise);
-          }
-     });
 
-     Promise.all(promises).then(async (values) => {
+     for (let i = 0; i < config?.fechRepeat; i++) {
+          let urlRandom = config?.urls[Math.floor(Math.random() * config?.urls.length)];
+          const promise = getPromise(urlRandom);
+          console.log(`Requesting: ${urlRandom} 🚀`);
+          promises.push(promise);
+     }
+
+     Promise.all(promises).then(async () => {
           let TotalerrorReports = statusStadistics.requestErrorList.length;
           let TotalRequestOk = statusStadistics.requestOk;
           const items = [
@@ -166,7 +164,7 @@ function feching() {
           if (config.fechContinue) {
                setTimeout(() => {
                     feching();
-               }, 2000);
+               }, config.fechDelay);
           }
      });
 }
