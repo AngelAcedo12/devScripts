@@ -1,12 +1,12 @@
 {
     "dir": "apps/feching/",
     "dirName": "reports.json",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Im1hbmFnZXIiLCJjb2RlIjoibWFuYWdlciIsInVzZXJSb2xlIjoiMiIsImV4dGVybm8iOiJGYWxzZSIsImZyYW5qYUhvcmFyaWEiOiIiLCJ1c2VySWQiOiIxIiwidGZhIjoiWSIsImVtcElkIjoiMSIsInVzZXJNYWlsIjoiam9zZS5jYXJhYmFsbG9AZmlyc2FwLmNvbSIsIm5hbWUiOiJVc3VhcmlvIiwibmJmIjoxNzI3OTUwNTEzLCJleHAiOjE3Mjc5ODY1MTMsImlhdCI6MTcyNzk1MDUxMywiaXNzIjoid3d3LmZpcnNhcC5jb20iLCJhdWQiOiJ3d3cuZmlyc2FwLmNvbSJ9.uyCZxzJyO_bZrt8fy7ZrKQ6_sxN8KrC-wic2s8UwUgE",
+    "token": "eyJhbGciOiJIUzM4NCJ9.eyJpYXQiOjE3MzE3OTgwMDAsInN1YiI6ImFudG9uaW8iLCJleHAiOjE3NDAzOTY3ODR9.L0ocy2HQgxc2fn_R2lEuZ5WaMo7OayjuW0iKOzJOlYkSy3T9uO-_thpDQiplvV1x",
     "urls": [
-        "http://192.168.0.33:94/api/husos/getHusoByEmpID?empid=1"
+        "http://localhost:8080/api/user/profile/manolo"
     ],
-    "fechRepeat": 2,
-    "fechContinue": true,
+    "fechRepeat": 1,
+    "fechContinue": false,
     "fechDelay": 1000,
     "delay": 1000
 }
